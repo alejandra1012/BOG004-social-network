@@ -1,6 +1,7 @@
 // aqui exportaras las funciones que necesites
 
-export const myFunction = () => {
+const changeView = (route) => {
   // aqui tu codigo
-  console.log('Hola mundo!');
+  console.log(route);
 };
+export { changeView }
