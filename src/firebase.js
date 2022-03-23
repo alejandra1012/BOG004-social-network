@@ -1,7 +1,10 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+/* eslint-disable */
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js';
+import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
+/* eslint-enable */
+
+// import { getFirestore } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,4 +33,4 @@ createUserWithEmailAndPassword(auth, email, password)
     // ..
   });
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);

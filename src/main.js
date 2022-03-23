@@ -1,4 +1,4 @@
-import { changeView } from './lib/index.js';
+import { changeView } from './controlador-vistas/index.js';
 
 window.addEventListener('DOMContentLoaded', () => {
 
