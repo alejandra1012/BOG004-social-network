@@ -1,19 +1,23 @@
-import { components} from "../view/index.js"
+import { components } from '../view/index.js';
 
-const changeView = (route) => {
-  const container = document.getElementById("container")
-  container.innerHTML = "";
-  switch (route) {
-    case "#/registro": { 
-      return container.appendChild(components.registro()) }
-      case "#/iniciar-sesión":
-        {return container.appendChild(components.login()) }
-     default:
-         break; 
-    
+export const changeView = (hash) => {
+  const id = hash.split('/')[1];
+  const sectionMain = document.getElementById('container');
+  sectionMain.innerHTML = '';
+
+  switch (hash) {
+    case '':
+    case '#':
+    case '#/registro': {
+      return sectionMain.appendChild(components.registro());
+    }
+    case '#/iniciar-sesión':
+    case '#/iniciar-sesión-google':
+    case '#/muro':
+    case '#/perfil': {
+      return sectionMain.appendChild(components[id]());
+    }
+    default:
+      return sectionMain.appendChild(components.different());
   }
-  console.log(route);
 };
-
-export { changeView };
- 

@@ -1,9 +1,8 @@
 export default () => {
-    
+  const viewRegister = `<h1>hola mundo</h1>`;
 
-const divElement = document.createElement('div');
-divElement.classList.add('position')
-const viewRegister = `<h1>hola mundo</h1>`
-divElement.innerHTML = viewRegister;
-return divElement;
-}
+  const divElement = document.createElement('div');
+  divElement.classList.add('position');
+  divElement.innerHTML = viewRegister;
+  return divElement;
+};
