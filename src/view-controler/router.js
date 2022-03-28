@@ -4,15 +4,15 @@ export const changeView = (hash) => {
   const id = hash.split('/')[1];
   const sectionMain = document.getElementById('container');
   sectionMain.innerHTML = '';
-
+console.log(hash);
   switch (hash) {
     case '':
     case '#':
-    case '#/registro': {
-      return sectionMain.appendChild(components.registro());
+    case '#/login': {
+      return sectionMain.appendChild(components.login());
     }
-    case '#/iniciar-sesión':
-    case '#/iniciar-sesión-google':
+    case '#/registro':
+    case '#/loginGoogle':
     case '#/muro':
     case '#/perfil': {
       return sectionMain.appendChild(components[id]());

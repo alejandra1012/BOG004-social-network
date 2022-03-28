@@ -1,6 +1,6 @@
 export default () => {
   const viewPerfil = `
-    <h2>class="text-center">¡Bienvenid@ a nuestra página!</h2>
+    <h2 class="titulo">¡Bienvenid@ a nuestra página!</h2>
     <figure class="text-center">
     <img class="image" src= "falta imagen" alt=
     </figure>`;
