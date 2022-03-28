@@ -1,0 +1,50 @@
+body{
+    background-color: #431527;
+}
+.nombreSn{
+    color:#9a8989;
+    font-style: normal;
+   
+}
+.bienvenida{
+    color:#786162;
+}
+.container{
+    background-color: #9a8989;
+    width:  40% ;
+    place-content: center;
+
+    
+
+   
+  
+   
+}
+.login{
+    background-color: #431527;
+    color: #9a8989;
+   
+}
+.logo{
+    width: 20px;
+    height: 20px;
+    padding-right: 10px;
+    
+}
+
+.loginGoogle{
+    background-color: blanchedalmond;
+   
+}
+.registro{
+    text-align: center;
+    
+}
+
+.titulo{
+font-style: italic;
+color: rgb(58, 38, 9);
+}
+
+
+
