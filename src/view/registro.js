@@ -20,12 +20,13 @@ export default () => {
   const divElement = document.createElement('div');
   divElement.classList.add('position');
   divElement.innerHTML = viewRegister;
-  const email = divElement.querySelector('#email');
-  const password = divElement.querySelector('#password');
-  const confirmPassword = divElement.querySelector('#confirmPassword');
+  
   const botonCrearCuenta = divElement.querySelector('#crearCuenta');
   botonCrearCuenta.addEventListener('click', () => {
-    registro(email, password, confirmPassword);
+    const email = divElement.querySelector('#email').value;
+  const password = divElement.querySelector('#password').value;
+  const confirmPassword = divElement.querySelector('#confirmPassword').value;
+    registro(email, password);
   });
 
   return divElement;

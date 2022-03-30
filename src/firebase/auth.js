@@ -1,10 +1,10 @@
 /* eslint-disable */
 import {getAuth,createUserWithEmailAndPassword,} from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
 /* eslint-enable */
-export function registro(email, password, confirmPassword) {
-  console.log(email, password, confirmPassword);
+export function registro(email, password) {
+  console.log(email, password);
   const auth = getAuth();
-  return createUserWithEmailAndPassword(auth, email, password, confirmPassword)
+  return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
