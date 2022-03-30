@@ -4,26 +4,27 @@ body{
 .nombreSn{
     color:#9a8989;
     font-style: normal;
+    text-align: center;
    
 }
-.bienvenida{
-    color:#786162;
-}
+
 .container{
     background-color: #9a8989;
     width:  40% ;
     place-content: center;
-
-    
-
-   
-  
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
    
 }
 .login{
     background-color: #431527;
     color: #9a8989;
    
+}
+.crearCuenta{
+    background-color: #431527;
+    color: #9a8989; 
 }
 .logo{
     width: 20px;
@@ -36,15 +37,7 @@ body{
     background-color: blanchedalmond;
    
 }
-.registro{
-    text-align: center;
-    
-}
 
-.titulo{
-font-style: italic;
-color: rgb(58, 38, 9);
-}
 
 
 

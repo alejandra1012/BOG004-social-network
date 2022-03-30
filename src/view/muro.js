@@ -1,8 +1,8 @@
 export default () => {
   const viewMuro = `
-    <h2 class="text-center">¡Bienvenid@ a nuestra página!</h2>
+      <h2 class="text-center">¡Bienvenid@ a nuestra página!</h2>
     <figure class="text-center">
-    <img class="image" src= "falta imagen" alt=
+    <img class="image" src="https://th.bing.com/th/id/OIP.ZLJLezk5gnuNIiRGO-GEWAHaLH?pid=ImgDet&rs=1" alt=
     </figure>`;
 
   const divElement = document.createElement('div');
