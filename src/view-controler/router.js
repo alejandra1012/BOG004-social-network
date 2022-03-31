@@ -4,7 +4,7 @@ export const changeView = (hash) => {
   const id = hash.split('/')[1];
   const sectionMain = document.getElementById('container');
   sectionMain.innerHTML = '';
-console.log(hash);
+
   switch (hash) {
     case '':
     case '#':

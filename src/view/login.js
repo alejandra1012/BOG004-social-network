@@ -6,7 +6,7 @@ export default () => {
   <p><input type= 'password' placeholder='contraseña'></p>
   <button class='login' id='login'>Iniciar secion</button>
   <h3>o ingresa con</h1>
-  <a href= '#/loginGoogle'<button class='loginGoogle' id='loginGoogle'><img class="logo" src= 'http://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png' alt=logo Google>Iniciar con Google</button></a>
+  <a href= '#/loginGoogle'<button class='loginGoogle' id='loginGoogle'><img class="logo" src= './imagenes/Google.png' alt=logo Google>Iniciar con Google</button></a>
   <h3>¿Aun no tienes cuenta con MISTERIO?</h1>
   <a href= '#/registro'><button class='registrate' id='registrate'>Registrate aqui</button></a>
   </section>
