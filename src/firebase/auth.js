@@ -7,7 +7,7 @@ import {
 export function registro(auth, email, password, confirmPassword) {
   console.log(email, password, confirmPassword);
 
-  return createUserWithEmailAndPassword(auth, email, password, confirmPassword );
+  return createUserWithEmailAndPassword(auth, email, password, confirmPassword);
 }
 
 export function signed(auth, email, password) {
