@@ -1,15 +1,18 @@
 import {
-  getAuth,
+  auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from './firebase.js';
+  signInWithPopup,
+} from './firebaseInit.js';
 
 export function registro(auth, email, password, confirmPassword) {
-  console.log(email, password, confirmPassword);
-
   return createUserWithEmailAndPassword(auth, email, password, confirmPassword);
 }
 
 export function signed(auth, email, password) {
   return signInWithEmailAndPassword(auth, email, password);
+}
+
+export function loginGoogle(auth, provider) {
+  return signInWithPopup(auth, provider);
 }

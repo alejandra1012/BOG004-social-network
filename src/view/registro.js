@@ -1,5 +1,5 @@
-import { auth } from '../firebase/firebase.js';
-import { registro } from '../firebase/auth.js';
+import { auth, GoogleAuthProvider, provider } from '../firebase/firebaseInit.js';
+import { registro, loginGoogle } from '../firebase/firebaseController.js';
 
 export default () => {
   const viewRegister = `<main class='registro'><h1 class= 'nombreSn'>MISTERIO</h1>
@@ -17,9 +17,9 @@ export default () => {
       <div id='errorMessageJoin'></div>
   
   <h3>o registrate con</h3>
-  <a href= '#/loginGoogle'><button class='loginGoogle' id='loginGoogle'><img class='logo' src= './imagenes/Google.png' alt=logo Google>Registrate con Google</button></a>
+  <button class='registerGoogle' id='registerGoogle'><img class='logo' src= './imagenes/Google.png' alt=logo Google>Registrate con Google</button>
   <h3>ya tienes cuenta con MISTERIO</h3>
-  <button class='registrate' id='registrate'>Inicia sesión aquí</button>
+  <a href= '#/login'><button class='creado' id='creado'>Inicia sesión aquí</button></a>
   </section>
   </main>`;
 
@@ -43,8 +43,6 @@ export default () => {
             divElement.querySelector('#modalMessage').style.display = 'none';
             window.location.hash = '#/muro';
           }, 3000);
-
-          console.log('crearCuenta');
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -52,23 +50,46 @@ export default () => {
           //   console.log(errorCode, errorMessage);
           switch (errorCode) {
             case 'auth/invalid-email':
-              errorMessageJoin.innerHTML = '❌ Invalid Email';
+              errorMessageJoin.innerHTML = '❌ Correo electrónico no válido';
               break;
             case 'auth/weak-password':
-              errorMessageJoin.innerHTML = '⚠️ The password must contain minimum six characters';
+              errorMessageJoin.innerHTML = '⚠️ La contraseña debe contener un mínimo de seis caracteres';
               break;
             case 'auth/email-already-in-use':
-              errorMessageJoin.innerHTML = '⚠️ Your email is already registered';
+              errorMessageJoin.innerHTML = '⚠️ Tu correo electrónico ya está registrado';
               break;
             default:
-              errorMessageJoin.innerHTML = '⚠️ Fill in all the fields';
+              errorMessageJoin.innerHTML = '⚠️ Rellena todos los campos';
               break;
           }
         });
     } else {
-      errorMessageJoin.innerHTML = '⚠️confirmPassword is a require field';
-      console.log('No ingreso confirmPassword');
+      errorMessageJoin.innerHTML = '⚠️ confirmar contraseña es un campo obligatorio';
     }
+  });
+
+  const bottonregisterGoogle = divElement.querySelector('#registerGoogle');
+  bottonregisterGoogle.addEventListener('click', () => {
+    loginGoogle(auth, provider, GoogleAuthProvider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        window.location.hash = '#/muro';
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
   });
   return divElement;
 };

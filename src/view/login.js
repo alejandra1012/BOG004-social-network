@@ -1,5 +1,5 @@
-import { auth } from '../firebase/firebase.js';
-import { signed } from '../firebase/auth.js';
+import { auth, provider } from '../firebase/firebaseInit.js';
+import { signed, loginGoogle } from '../firebase/firebaseController.js';
 
 export default () => {
   const viewLogin = `<main class='registro'><h1 class= 'nombreSn'>MISTERIO</h1>
@@ -9,12 +9,12 @@ export default () => {
   <p><input type= 'password' id= 'password' placeholder='contraseña'></p>
   <div id='modalMessage'>
               <div id='textModal'></div>            
-          </div>
-      <div id='errorMessagelogin'></div>
+   </div>
+   <div class='errorMessagelogin'></div>
   
   <button class='login' id='login'>Iniciar sesión</button>
   <h3>o ingresa con</h3>
-  <a href= '#/loginGoogle'<button class='loginGoogle' id='loginGoogle'><img class='logo' src= './imagenes/Google.png' alt=logo Google>Iniciar con Google</button></a>
+  <button class='loginGoogle' id='loginGoogle'><img class='logo' src= './imagenes/Google.png' alt=logo Google>Iniciar con Google</button>
   <h3>¿Aun no tienes cuenta con MISTERIO?</h3>
   <a href= '#/registro'><button class='registrate' id='registrate'>Registrate aqui</button></a>
   </section>
@@ -24,7 +24,12 @@ export default () => {
   const divElement = document.createElement('div');
   divElement.classList.add('position');
   divElement.innerHTML = viewLogin;
+
+  const errorMessage = divElement.querySelector('.errorMessagelogin');
+  // console.log('este error message: ', errorMessage);
+
   const botonLogin = divElement.querySelector('#login');
+
   botonLogin.addEventListener('click', () => {
     const email = divElement.querySelector('#email').value;
     const password = divElement.querySelector('#password').value;
@@ -44,24 +49,29 @@ export default () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = divElement.querySelector('#errorMessageLogin');
         // Creamos casos de error para inicio de sesion de usuario ya registrado
         switch (errorCode) {
           case 'auth/invalid-email':
-            errorMessage.innerHTML = '❌Invalid Email';
+            errorMessage.innerHTML = '❌Correo electrónico no válido';
             break;
           case 'auth/wrong-password':
-            errorMessage.innerHTML = '❌Wrong Password';
+            errorMessage.innerHTML = '❌Contraseña incorrecta';
             break;
           case 'auth/user-not-found':
-            errorMessage.innerHTML = '⚠️ User not Found, Please Join';
+            errorMessage.innerHTML = '⚠️ Usuario no encontrado, ¡por favor registrate!';
             break;
           default:
-            errorMessage.innerHTML = '⚠️ Fill in all the fields';
+            errorMessage.innerHTML = '⚠️ Rellena todos los campos';
             break;
         }
       });
   });
-
+  const bottonloginGoogle = divElement.querySelector('#loginGoogle');
+  bottonloginGoogle.addEventListener('click', () => {
+    loginGoogle(auth, provider)
+      .then(() => {
+        window.location.hash = '#/muro';
+      });
+  });
   return divElement;
 };

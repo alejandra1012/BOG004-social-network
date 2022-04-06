@@ -9,7 +9,11 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+  GoogleAuthProvider,
+  signInWithPopup,
+  /* eslint-disable */
+} from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
+/* eslint-enable */
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -25,8 +29,12 @@ export const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth();
 
+export const provider = new GoogleAuthProvider();
+
 export {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 };
