@@ -2,14 +2,15 @@ body{
     background-image:url('https://c.wallhere.com/photos/ab/5c/10lane_1998x972_px_alien_Aliens_apocalyptic_cloverfield_Dark_drama-1630065.jpg!d')
 }
 .nombreSn{
-    color:#9a8989;
-    font-style: normal;
+    color:#009e66;
     text-align: center;
+    font-family: 'Rubik Bubbles', cursive;
+    size: 100px;rem;
    
 }
 
 .container{
-    background-color: #9a8989;
+    background-color: #000000;
     width:  90% ;
     height: 50vh;
     place-content: center;
