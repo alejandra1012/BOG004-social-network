@@ -12,7 +12,6 @@ export const changeView = (hash) => {
       return sectionMain.appendChild(components.login());
     }
     case '#/registro':
-    case '#/loginGoogle':
     case '#/muro':
     case '#/perfil': {
       return sectionMain.appendChild(components[id]());
