@@ -5,12 +5,12 @@ body{
     color:#009e66;
     text-align: center;
     font-family: 'Rubik Bubbles', cursive;
-    size: 100px;rem;
+    size: 100px;
    
 }
 
 .container{
-    background-color: #000000;
+    background-color: #e2dddd;
     width:  90% ;
     height: 50vh;
     place-content: center;

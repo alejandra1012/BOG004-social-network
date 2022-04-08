@@ -1,5 +1,5 @@
 import { auth, provider } from '../firebase/firebaseInit.js';
-import { signed, loginGoogle } from '../firebase/firebaseController.js';
+import { signedEmail, loginGoogleM } from '../firebase/promesasFirebase.js';
 
 export default () => {
   const viewLogin = `<main class='registro'><h1 class= 'nombreSn'>MISTERIO</h1>
@@ -26,52 +26,18 @@ export default () => {
   divElement.innerHTML = viewLogin;
 
   const errorMessage = divElement.querySelector('.errorMessagelogin');
-  // console.log('este error message: ', errorMessage);
+  errorMessage.innerHTML = '';
 
   const botonLogin = divElement.querySelector('#login');
 
   botonLogin.addEventListener('click', () => {
     const email = divElement.querySelector('#email').value;
     const password = divElement.querySelector('#password').value;
-
-    signed(auth, email, password)
-      .then(() => {
-        window.location.hash = '#/muro';
-        // // Signed in
-        // //const user = userCredential.user;
-        // //console.log(user);
-        // if (user) {
-        //   return true;
-        // } else {
-        //   return false;
-        // //}
-        // // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        // Creamos casos de error para inicio de sesion de usuario ya registrado
-        switch (errorCode) {
-          case 'auth/invalid-email':
-            errorMessage.innerHTML = '❌Correo electrónico no válido';
-            break;
-          case 'auth/wrong-password':
-            errorMessage.innerHTML = '❌Contraseña incorrecta';
-            break;
-          case 'auth/user-not-found':
-            errorMessage.innerHTML = '⚠️ Usuario no encontrado, ¡por favor registrate!';
-            break;
-          default:
-            errorMessage.innerHTML = '⚠️ Rellena todos los campos';
-            break;
-        }
-      });
+    signedEmail(auth, email, password);
   });
   const bottonloginGoogle = divElement.querySelector('#loginGoogle');
   bottonloginGoogle.addEventListener('click', () => {
-    loginGoogle(auth, provider)
-      .then(() => {
-        window.location.hash = '#/muro';
-      });
+    loginGoogleM(auth, provider);
   });
   return divElement;
 };
