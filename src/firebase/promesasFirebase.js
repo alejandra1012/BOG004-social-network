@@ -1,7 +1,7 @@
 import { signed, loginGoogle, registro } from './firebaseController.js';
 
-export function signedEmail(auth, email, password) {
-  signed(auth, email, password)
+export function signedEmail(email, password) {
+  return signed(email, password)
     .then(() => {
       window.location.hash = '#/muro';
     })
@@ -26,14 +26,14 @@ export function signedEmail(auth, email, password) {
 }
 
 export function loginGoogleM(auth, provider) {
-  loginGoogle(auth, provider)
+  return loginGoogle(auth, provider)
     .then(() => {
       window.location.hash = '#/muro';
     });
 }
 
-export function registerEmail(auth, email, password, confirmPassword) {
-  registro(auth, email, password, confirmPassword)
+export function registerEmail(email, password, confirmPassword) {
+  return registro(email, password, confirmPassword)
     .then(() => {
       document.querySelector('#modalMessage').style.display = 'block';
       document.querySelector('#textModal').innerHTML = 'Bienvenid@ ya eres parte de MISTERIO!';
@@ -64,24 +64,9 @@ export function registerEmail(auth, email, password, confirmPassword) {
     });
 }
 export function registerGoogle(auth, provider, GoogleAuthProvider) {
-  loginGoogle(auth, provider, GoogleAuthProvider)
-    .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
+  return loginGoogle(auth, provider, GoogleAuthProvider)
+    .then(() => {
       window.location.hash = '#/muro';
-    // ...
-    })
-    .catch((error) => {
-    // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
     });
 }

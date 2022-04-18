@@ -1,21 +1,35 @@
-// Import the functions you need from the SDKs you need
-/* eslint-disable */
+// eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js';
-/* eslint-enable */
-// import { getFirestore } from 'firebase/firestore';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  /* eslint-disable */
+  onAuthStateChanged,
+  signOut,
+// eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
-/* eslint-enable */
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  onSnapshot,
+  doc,
+  query,
+  serverTimestamp,
+  orderBy,
+  deleteDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  // eslint-disable-next-line import/no-unresolved
+} from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyB1hX3d309sNUQ-HxsJKqs-PGkgmTVRjds',
   authDomain: 'misterio-sn15-1d8fd.firebaseapp.com',
@@ -23,13 +37,15 @@ const firebaseConfig = {
   storageBucket: 'misterio-sn15-1d8fd.appspot.com',
   messagingSenderId: '804314692096',
   appId: '1:804314692096:web:8a79e0d7f3c5045b0b76e5',
-  measurementId: 'G-VPCYC87EMF',
+
 };
 export const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth();
+// export const auth = getAuth();
 
 export const provider = new GoogleAuthProvider();
+
+export const db = getFirestore();
 
 export {
   getAuth,
@@ -37,4 +53,20 @@ export {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  onAuthStateChanged,
+  signOut,
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  onSnapshot,
+  doc,
+  query,
+  serverTimestamp,
+  orderBy,
+  deleteDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
 };
