@@ -1,8 +1,8 @@
-import { auth, GoogleAuthProvider, provider } from '../firebase/firebaseInit.js';
+import { GoogleAuthProvider, provider } from '../firebase/firebaseInit.js';
 import { registerEmail, registerGoogle } from '../firebase/promesasFirebase.js';
 
 export default () => {
-  const viewRegister = `<main class='registro'><h1 class= 'nombreSn'>MISTERIO</h1>
+  const viewRegister = `<main class='registro'>
   <section id='container' class='container'
   <h2 class='titulo'>BIENVENID@ INGRESA AQUI</h2>
   <input type= 'email' id= 'email' placeholder='email' > 
@@ -16,10 +16,10 @@ export default () => {
           </div>
       <div id='errorMessageJoin'></div>
   
-  <h3>O</h3>
-  <button class='registerGoogle' id='registerGoogle'><img class='logo' src= './imagenes/Google.png' alt=logo Google>Registrate con Google</button>
-  <h3>ya tienes cuenta con MISTERIO</h3>
-  <a href= '#/login'><button class='creado' id='creado'>Inicia sesión aquí</button></a>
+  <h4>O Registrate con</h4>
+  <button class='loginGoogle' id='registerGoogle'><img class='logo' src= './imagenes/Google.png' alt=logo Google></button>
+  <h3>¿ya tienes cuenta con MISTERIO?</h3>
+  <a href= '#/login'><button class='registrate' id='creado'>Inicia sesión aquí</button></a>
   </section>
   </main>`;
 
@@ -35,7 +35,7 @@ export default () => {
     errorMessageJoin.innerHTML = '';
 
     if (confirmPassword === password) {
-      registerEmail(auth, email, password, confirmPassword);
+      registerEmail(email, password, confirmPassword);
     } else {
       errorMessageJoin.innerHTML = '⚠️ confirmar contraseña es un campo obligatorio';
     }
@@ -43,7 +43,7 @@ export default () => {
 
   const bottonregisterGoogle = divElement.querySelector('#registerGoogle');
   bottonregisterGoogle.addEventListener('click', () => {
-    registerGoogle(auth, provider, GoogleAuthProvider);
+    registerGoogle(provider, GoogleAuthProvider);
   });
   return divElement;
 };

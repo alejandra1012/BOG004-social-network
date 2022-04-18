@@ -12,7 +12,7 @@ export const changeView = (hash, _components = components) => {
     }
     case '#/registro':
     case '#/muro':
-    case '#/perfil': {
+    {
       return sectionMain.appendChild(_components[id]());
     }
     default:
