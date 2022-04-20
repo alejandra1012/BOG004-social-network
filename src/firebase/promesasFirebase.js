@@ -2,7 +2,8 @@ import { signed, loginGoogle, registro } from './firebaseController.js';
 
 export function signedEmail(email, password) {
   return signed(email, password)
-    .then(() => {
+    .then((response) => {
+      sessionStorage.setItem('userId', JSON.stringify(response.user));
       window.location.hash = '#/muro';
     })
     .catch((error) => {
@@ -27,18 +28,21 @@ export function signedEmail(email, password) {
 
 export function loginGoogleM(auth, provider) {
   return loginGoogle(auth, provider)
-    .then(() => {
+    .then((response) => {
+      sessionStorage.setItem('userId', JSON.stringify(response.user));
       window.location.hash = '#/muro';
     });
 }
 
 export function registerEmail(email, password, confirmPassword) {
   return registro(email, password, confirmPassword)
-    .then(() => {
-      document.querySelector('#modalMessage').style.display = 'block';
+    .then((response) => {
+      sessionStorage.setItem('userId', JSON.stringify(response.user));
+      const elemento = document.querySelector('#modalMessage');
+      elemento.style.display = 'block';
       document.querySelector('#textModal').innerHTML = 'Bienvenid@ ya eres parte de MISTERIO!';
       setTimeout(() => {
-        document.querySelector('#modalMessage').style.display = 'none';
+        elemento.style.display = 'none';
         window.location.hash = '#/muro';
       }, 3000);
     })
@@ -65,7 +69,8 @@ export function registerEmail(email, password, confirmPassword) {
 }
 export function registerGoogle(auth, provider, GoogleAuthProvider) {
   return loginGoogle(auth, provider, GoogleAuthProvider)
-    .then(() => {
+    .then((response) => {
+      sessionStorage.setItem('userId', JSON.stringify(response.user));
       window.location.hash = '#/muro';
     // ...
     });

@@ -14,21 +14,21 @@ import {
 
 export default () => {
   const viewMuro = `
-  <header id='banner'>
-  <div class="tittle-daily"></div>
+  <header>
+  <div class='titulo-muro'>MURO</div>
 </header>
-<i class='fa-solid fa-arrow-right-from-bracket' id='cerrarSesion' ></i>
+<div class='cerrar'><i class='fa-solid fa-arrow-right-from-bracket' id='cerrarSesion' ></i></div>
 <main class='main-daily'>
   <div id='modal-background'>
     <form id='modal_post-container' class='modal_post-container'>
       <div id='modal_header'>
-        <img id='user_img' src='./img/Icono_Harry.png'>
-        <div id='name-container'>Wizard</div>
+      <img id='img-usuario' src='../imagenes/alien.png'>
+        <div class='name-container'>MiSTERIOSO</div>
         <i class='fa-solid fa-xmark' id='close'></i>
       </div>
       <div id='line'>
         <div id='text-container'>
-          <textarea type='text' id='post-description' placeholder='Reveal your secrets'></textarea>
+          <textarea type='text' id='post-description' placeholder='Cuéntanos tu historia'></textarea>
         </div>
       </div>
       <button disabled type='submit' id='btn-post-save' class='btn-post-inactive'>Save</button>  
@@ -45,11 +45,15 @@ export default () => {
   divElement.classList.add('position');
   divElement.innerHTML = viewMuro;
   const userInfo = currentUser();
+  let userId = '';
+  if (userInfo !== null) {
+    userId = userInfo.uid;
+  }
+  // console.log('===============================>>>>>SOY YO: ', userId);
   const btnCreate = divElement.querySelector('#btn-post-create');
   const background = divElement.querySelector('#modal-background');
   const modalPost = divElement.querySelector('#modal_post-container');
   const postDescription = divElement.querySelector('#post-description');
-  // console.log('USERINFO', userInfo);
   // Evento Boton crear
   btnCreate.addEventListener('click', () => {
     background.style.display = 'flex';
@@ -59,49 +63,49 @@ export default () => {
   });
 
   // Crear Post
-  const putUp = (currentUserInfo) => {
+  const putUp = () => {
     const postForm = divElement.querySelector('#modal_post-container');
     postForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const postFormContent = postForm['post-description'];
-      const postUid = currentUserInfo.uid;
+      // const postUid = currentUserInfo.uid;
       const likeIds = []; // Array vacio para likes
-      crearPublicacion(postFormContent.value, postUid, likeIds);
+      crearPublicacion(postFormContent.value, userId, likeIds);
       modalPost.reset();
     });
   };
   putUp(userInfo);
 
   // Controlador de Post (Read, Update, Delete)
-  const postController = (currentUserInfo) => {
+  const postController = () => {
     const postContainer = divElement.querySelector('#post-container');
     const querySnapshot = getPost();
+    const sessionUserId = JSON.parse(sessionStorage.getItem('userId'));
+    console.log(sessionUserId);
 
     // función para leer las publicaciones en tiempo real
     readAllPost((response) => {
-      console.log('RESPONSE', response);
       let postTemplate = '';
       response.forEach((doc) => {
         const post = doc.data();
         let deleteEditSection;
-        const userIdLogin = currentUserInfo.uid;
-        console.log('POST', currentUserInfo);
-
-        if (userIdLogin === post.uidPost) {
+        // const userIdLogin = sessionUserId;
+        if (userId === post.uid) {
           deleteEditSection = `
-            <button class='edit-img' id='edit' data-postid='${doc.id}'></button>
-            <button class='save-img hidenBtn'  id='save'  data-postid='${doc.id}'></button>
-            <button class='delete-img' id='delete' data-postid='${doc.id}'></button>          
+            <button class='edit-img' id='edit' data-postid='${doc.id}'>Editar</button>
+            <button class='save-img hidenBtn'  id='save'  data-postid='${doc.id}'>Guardar</button>
+            <i class='fa-solid fa-xmark' id='close'></i>
+            <button class='delete-img' id='delete' data-postid='${doc.id}'>Eliminar</button>          
           `;
         } else {
-          deleteEditSection = '';
+          deleteEditSection = '<h2>Hola</h2>';
         }
-        const likeIcon = post.arrayLike.includes(currentUserInfo.uid);
+        const likeIcon = post.arrayLike.includes(sessionUserId);
         postTemplate += `
           <div id='div-post-container' class='div-post-container'> 
             <div id='post-container-header' class='post-container-header'>
-              <img class='user_img' src='./img/Icono_Harry.png'>
-              <div class='name-container'>Wizard</div>
+            <img id='img-usuario' src='../imagenes/alien.png'>
+              <div class='name-container'>MISTERIOSO</div>
               <div class='btns-post-container'>${deleteEditSection}
               </div>
             </div>
@@ -109,6 +113,7 @@ export default () => {
             <div class='counter-likebtn'>
               <button class='like' id='${doc.id}'><i class="${likeIcon}" id='${doc.id}></i></button>
               <div>
+              <p>ESTOY AQUI'</p>
               <p class='like-lenght'>${post.arrayLike.length}</p>
               </div>
             </div>
@@ -158,7 +163,8 @@ export default () => {
                     textArea.setAttribute('readonly', true);
                     btnSave.classList.add('hidenBtn');
                     editBtn[index].classList.remove('hidenBtn');
-                    actualizarPost(textArea.id, { postDescription });
+                    const postDescription1 = textArea.value;
+                    actualizarPost(textArea.id, { postDescription1 });
                   }
                 });
               });
@@ -169,7 +175,7 @@ export default () => {
 
       // Dar like
       const darLike = () => {
-        const userInfoId = currentUserInfo.uid;
+        const userInfoId = sessionUserId.uid;
         const btnLikes = divElement.querySelectorAll('.like');
         btnLikes.forEach((like) => {
           like.addEventListener('click', () => {
@@ -177,7 +183,7 @@ export default () => {
             accedeAlPost(liked)
               .then((docLike) => {
                 const justOnePost = docLike.data();
-                const likeIds = justOnePost.arraylike;
+                const likeIds = justOnePost.arrayLike;
                 if (likeIds.includes(userInfoId)) {
                   dislikes(liked, userInfoId);
                 } else {
@@ -195,7 +201,7 @@ export default () => {
     });
     readAllPost(querySnapshot);
   };
-  postController(userInfo);
+  postController();
 
   // declaracion modalClose para evento de cierre de modal
   const modalClose = divElement.querySelector('#close');

@@ -63,8 +63,10 @@ export const currentUser = () => {
 
 const dbPublicar = collection(db, 'posts');
 
-export function crearPublicacion(postDescription, arrayLike) {
-  return addDoc(dbPublicar, { postDescription, arrayLike, postCreatedAt: serverTimestamp() });
+export function crearPublicacion(postDescription, uid, arrayLike) {
+  return addDoc(dbPublicar, {
+    postDescription, uid, arrayLike, postCreatedAt: serverTimestamp(),
+  });
 }
 
 export function getPost() {
@@ -74,7 +76,6 @@ export function getPost() {
 const publicacionOrganizada = query(dbPublicar, orderBy('postCreatedAt', 'desc'));
 
 export function readAllPost(querySnapshot) {
-  console.log('QUERYSNAPSHOT', querySnapshot);
   return onSnapshot(publicacionOrganizada, querySnapshot);
 }
 /*
@@ -113,3 +114,5 @@ export function cerrarSesion() {
   const logOutUser = signOut(auth);
   return logOutUser;
 }
+
+export { getAuth };
