@@ -1,16 +1,7 @@
 import {
-  crearPublicacion,
-  getPost,
-  readAllPost,
-  currentUser,
-  borrarPost,
-  cerrarSesion,
-  accedeAlPost,
-  actualizarPost,
-  likes,
-  dislikes,
-}
-  from '../firebase/firebaseController.js';
+  crearPublicacion, getPost, readAllPost, currentUser, borrarPost, cerrarSesion,
+  accedeAlPost, actualizarPost, likes, dislikes,
+} from '../firebase/firebaseController.js';
 
 export default () => {
   const viewMuro = `
@@ -22,9 +13,8 @@ export default () => {
   <div id='modal-background'>
     <form id='modal_post-container' class='modal_post-container'>
       <div id='modal_header'>
-      <img id='img-usuario' src='../imagenes/alien.png'>
-        <div class='name-container'>MiSTERIOSO</div>
-        <i class='fa-solid fa-xmark' id='close'></i>
+       <img id='img-usuario' src='../imagenes/alien.png'>
+        <div class='name-container'>MISTERIOSO</div>
       </div>
       <div id='line'>
         <div id='text-container'>
@@ -33,9 +23,8 @@ export default () => {
       </div>
       <button disabled type='submit' id='btn-post-save' class='btn-post-inactive'>Save</button>  
     </form>
-  </div>
-  <button type='button' id='btn-post-create' class='btn-post-create'>Comment +</button>        
-  <div id='post-container' class='post-container'></div>       
+   </div>
+   <aside>  <div id='post-container' class='post-container'></div> </aside>
 </main>
 <footer id='create-post'>          
 </footer>
@@ -50,17 +39,17 @@ export default () => {
     userId = userInfo.uid;
   }
   // console.log('===============================>>>>>SOY YO: ', userId);
-  const btnCreate = divElement.querySelector('#btn-post-create');
+  // const btnCreate = divElement.querySelector('#btn-post-create');
   const background = divElement.querySelector('#modal-background');
   const modalPost = divElement.querySelector('#modal_post-container');
   const postDescription = divElement.querySelector('#post-description');
+  const sessionUser = JSON.parse(sessionStorage.getItem('userId'));
   // Evento Boton crear
-  btnCreate.addEventListener('click', () => {
-    background.style.display = 'flex';
-    modalPost.style.display = 'block';
-    postDescription.focus();
-    postDescription.value = '';
-  });
+  // btnCreate.addEventListener('click', () => {
+  //   modalPost.style.display = 'block';
+  //   postDescription.focus();
+  //   postDescription.value = '';
+  // });
 
   // Crear Post
   const putUp = () => {
@@ -70,7 +59,8 @@ export default () => {
       const postFormContent = postForm['post-description'];
       // const postUid = currentUserInfo.uid;
       const likeIds = []; // Array vacio para likes
-      crearPublicacion(postFormContent.value, userId, likeIds);
+      const userEmail = sessionUser.email;
+      crearPublicacion(postFormContent.value, userId, likeIds, userEmail);
       modalPost.reset();
     });
   };
@@ -78,10 +68,9 @@ export default () => {
 
   // Controlador de Post (Read, Update, Delete)
   const postController = () => {
+    background.style.display = 'flex';
     const postContainer = divElement.querySelector('#post-container');
     const querySnapshot = getPost();
-    const sessionUserId = JSON.parse(sessionStorage.getItem('userId'));
-    console.log(sessionUserId);
 
     // función para leer las publicaciones en tiempo real
     readAllPost((response) => {
@@ -89,33 +78,34 @@ export default () => {
       response.forEach((doc) => {
         const post = doc.data();
         let deleteEditSection;
-        // const userIdLogin = sessionUserId;
+        // const userIdLogin = sessionUser;
         if (userId === post.uid) {
           deleteEditSection = `
             <button class='edit-img' id='edit' data-postid='${doc.id}'>Editar</button>
             <button class='save-img hidenBtn'  id='save'  data-postid='${doc.id}'>Guardar</button>
-            <i class='fa-solid fa-xmark' id='close'></i>
-            <button class='delete-img' id='delete' data-postid='${doc.id}'>Eliminar</button>          
+            <button class='delete-img' id='delete' data-postid='${doc.id}'>X</button>          
           `;
         } else {
-          deleteEditSection = '<h2>Hola</h2>';
+          deleteEditSection = '<h2></h2>';
         }
-        const likeIcon = post.arrayLike.includes(sessionUserId);
+        const likeIcon = post.arrayLike.includes(sessionUser.uid);
         postTemplate += `
           <div id='div-post-container' class='div-post-container'> 
             <div id='post-container-header' class='post-container-header'>
-            <img id='img-usuario' src='../imagenes/alien.png'>
-              <div class='name-container'>MISTERIOSO</div>
-              <div class='btns-post-container'>${deleteEditSection}
-              </div>
+              <img id='img-usuario' src='../imagenes/alien.png'>
+              <div class='name-container'>${post.email}</div>
             </div>
-            <textarea type='text' class='post-content inp-post-modal-post' readonly id='${doc.id}'>${doc.data().postDescription}</textarea>  
-            <div class='counter-likebtn'>
-              <button class='like' id='${doc.id}'><i class="${likeIcon}" id='${doc.id}></i></button>
-              <div>
-              <p>ESTOY AQUI'</p>
-              <p class='like-lenght'>${post.arrayLike.length}</p>
-              </div>
+            <textarea type='text' class='post-content inp-pos-modal-post' readonly id='${doc.id}'>${doc.data().postDescription}
+            </textarea>  
+             <div class='counter-likebtn'>
+               <button class='like' id='${doc.id}'>
+                <i class="${likeIcon}" id='${doc.id}'></i>
+                <p class='like-lenght'>${post.arrayLike.length}</p>
+               </button>
+               <img id='img-like' src='../imagenes/grito.png' ${likeIcon ? '' : 'hidden'}>
+               <div class='btns-post-container'>${deleteEditSection}</div>
+               <div>
+               </div>
             </div>
           </div>    
         `;
@@ -141,33 +131,31 @@ export default () => {
         editBtn.forEach((btnEdit, index) => {
           btnEdit.addEventListener('click', (e) => {
             const clickBtnEdit = e.target.dataset.postid;
-            accedeAlPost(clickBtnEdit)
-              .then(() => {
-                editPostDescrip.forEach((textArea) => {
-                  if (textArea.id === clickBtnEdit) {
-                    textArea.removeAttribute('readonly');
-                    btnEdit.classList.add('hidenBtn');
-                    saveBtn[index].classList.remove('hidenBtn');
-                  }
-                });
+            accedeAlPost(clickBtnEdit).then(() => {
+              editPostDescrip.forEach((textArea) => {
+                if (textArea.id === clickBtnEdit) {
+                  textArea.removeAttribute('readonly');
+                  btnEdit.classList.add('hidenBtn');
+                  saveBtn[index].classList.remove('hidenBtn');
+                }
               });
+            });
           });
         });
         saveBtn.forEach((btnSave, index) => {
           btnSave.addEventListener('click', (e) => {
             const clickBtn = e.target.dataset.postid;
-            accedeAlPost(clickBtn)
-              .then(() => {
-                editPostDescrip.forEach((textArea) => {
-                  if (textArea.id === clickBtn) {
-                    textArea.setAttribute('readonly', true);
-                    btnSave.classList.add('hidenBtn');
-                    editBtn[index].classList.remove('hidenBtn');
-                    const postDescription1 = textArea.value;
-                    actualizarPost(textArea.id, { postDescription1 });
-                  }
-                });
+            accedeAlPost(clickBtn).then(() => {
+              editPostDescrip.forEach((textArea) => {
+                if (textArea.id === clickBtn) {
+                  textArea.setAttribute('readonly', true);
+                  btnSave.classList.add('hidenBtn');
+                  editBtn[index].classList.remove('hidenBtn');
+                  const postDescription1 = textArea.value;
+                  actualizarPost(textArea.id, { postDescription: postDescription1 });
+                }
               });
+            });
           });
         });
       };
@@ -175,21 +163,20 @@ export default () => {
 
       // Dar like
       const darLike = () => {
-        const userInfoId = sessionUserId.uid;
+        const userInfoId = sessionUser.uid;
         const btnLikes = divElement.querySelectorAll('.like');
         btnLikes.forEach((like) => {
           like.addEventListener('click', () => {
             const liked = like.id;
-            accedeAlPost(liked)
-              .then((docLike) => {
-                const justOnePost = docLike.data();
-                const likeIds = justOnePost.arrayLike;
-                if (likeIds.includes(userInfoId)) {
-                  dislikes(liked, userInfoId);
-                } else {
-                  likes(liked, userInfoId);
-                }
-              });
+            accedeAlPost(liked).then((docLike) => {
+              const justOnePost = docLike.data();
+              const likeIds = justOnePost.arrayLike;
+              if (likeIds.includes(userInfoId)) {
+                dislikes(liked, userInfoId);
+              } else {
+                likes(liked, userInfoId);
+              }
+            });
             // .catch((error) => {
             //   showNotification(error);
             // });
@@ -197,22 +184,23 @@ export default () => {
         });
       };
       darLike();
-    // FIN funcion para dar like al post
+      // FIN funcion para dar like al post
     });
     readAllPost(querySnapshot);
   };
   postController();
 
   // declaracion modalClose para evento de cierre de modal
-  const modalClose = divElement.querySelector('#close');
-  modalClose.addEventListener('click', () => {
-    background.style.display = 'none';
-    modalPost.style.display = '';
-  });
+  // const modalClose = divElement.querySelector('#close');
+  // modalClose.addEventListener('click', () => {
+  //   background.style.display = 'none';
+  //   modalPost.style.display = '';
+  // });
 
   // Función para no publicar espacios en blanco
   const btnSave = divElement.querySelector('#btn-post-save');
-  postDescription.addEventListener('keyup', () => { // evento del textarea
+  postDescription.addEventListener('keyup', () => {
+    // evento del textarea
     const postContent = postDescription.value.trim();
     // trim() metodo que no permite activar boton con espacio
     if (postContent === '') {
@@ -226,10 +214,10 @@ export default () => {
   const btnCerrarSesion = divElement.querySelector('#cerrarSesion');
   btnCerrarSesion.addEventListener('click', (e) => {
     e.preventDefault();
-    cerrarSesion()
-      .then(() => {
-        window.location.hash = '#/login';
-      });
+    sessionStorage.setItem('userId', 'logOut');
+    cerrarSesion().then(() => {
+      window.location.hash = '#/login';
+    });
   });
 
   return divElement;

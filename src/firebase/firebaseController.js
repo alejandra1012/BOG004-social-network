@@ -63,9 +63,9 @@ export const currentUser = () => {
 
 const dbPublicar = collection(db, 'posts');
 
-export function crearPublicacion(postDescription, uid, arrayLike) {
+export function crearPublicacion(postDescription, uid, arrayLike, email) {
   return addDoc(dbPublicar, {
-    postDescription, uid, arrayLike, postCreatedAt: serverTimestamp(),
+    postDescription, email, uid, arrayLike, postCreatedAt: serverTimestamp(),
   });
 }
 
