@@ -39,18 +39,14 @@ export function registerEmail(email, password, confirmPassword) {
     .then((response) => {
       sessionStorage.setItem('userId', JSON.stringify(response.user));
       const elemento = document.querySelector('#modalMessage');
-      elemento.style.display = 'block';
-      document.querySelector('#textModal').innerHTML = 'Bienvenid@ ya eres parte de MISTERIO!';
       setTimeout(() => {
         elemento.style.display = 'none';
         window.location.hash = '#/muro';
-      }, 3000);
+      }, 6000);
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessageJoin = document.querySelector('#errorMessageJoin');
-      //   const errorMessage = error.message;
-      //   console.log(errorCode, errorMessage);
       switch (errorCode) {
         case 'auth/invalid-email':
           errorMessageJoin.innerHTML = '❌ Correo electrónico no válido';

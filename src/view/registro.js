@@ -36,6 +36,12 @@ export default () => {
 
     if (confirmPassword === password) {
       registerEmail(email, password, confirmPassword);
+      const sessionUser = sessionStorage.getItem('userId');
+      if (sessionUser === 'logOut') {
+        const elemento = document.querySelector('#modalMessage');
+        document.querySelector('#textModal').innerHTML = 'Bienvenid@ ya eres parte de MISTERIO!';
+        elemento.style.display = 'block';
+      }
     } else {
       errorMessageJoin.innerHTML = '⚠️ confirmar contraseña es un campo obligatorio';
     }
@@ -45,5 +51,6 @@ export default () => {
   bottonregisterGoogle.addEventListener('click', () => {
     registerGoogle(provider, GoogleAuthProvider);
   });
+
   return divElement;
 };
