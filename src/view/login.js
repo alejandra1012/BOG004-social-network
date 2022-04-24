@@ -13,7 +13,7 @@ export default () => {
    <div class='errorMessagelogin'></div>
   
   <button class='login' id='login'>Iniciar sesión</button>
-  <h4>O Inicia con</h4>
+  <h4>O Ingresa con</h4>
   <button class='loginGoogle' id='loginGoogle'><img class='logo' src= './imagenes/Google.png' alt=logo Google></button>
   <h3>¿Aún no tienes cuenta con MISTERIO?</h3>
   <a href= '#/registro'><button class='registrate' id='registrate'>Regístrate aqui</button></a>
