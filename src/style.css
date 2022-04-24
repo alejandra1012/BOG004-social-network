@@ -9,14 +9,6 @@ body{
     font-size: xx-large;
    
 }
-/* .titulo{
-    color: white;
-    text-align: center;
-    font-family: 'Rubik Bubbles', cursive;
-    font-size: xx-large;
-   
-
-} */
 
 .container{
     background-color: #4e4d4d;
@@ -30,10 +22,10 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
     color: white;
     font-family:'Montserrat', sans-serif;
-    padding-top: 2px;
+    padding-top: 50px;
    
 }
 
@@ -98,11 +90,14 @@ body{
 }
 
 .titulo-muro{
-    /* text-align: right; */
     margin-left: 65%;
     font-size: 30px;
     color: white;
+    font-family: 'Rubik Bubbles', cursive;
 }
+
+.fa-solid, .fas {
+    font-size: x-large;}
 
 .cerrar{
     margin-left: 85%;
@@ -116,16 +111,26 @@ body{
 
 .name-container{
     color: white;
-    font-style: normal;
-    font-size-adjust: 10px;
+    font-family: 'Rubik Bubbles', cursive;
+    font-size: 15px;
 }
 #post-description{
     width: 300px;
-    height: 50px;
-    border-radius: 20px;
-    box-shadow: #009e66;
-    margin: 10px;
-    
+    height: 80px;
+    border-radius: 10px;
+    border-color: #009e66;
+    font-family: 'Rubik Bubbles', cursive;
+    font-size: 20px;
+}
+
+.btn-post-inactive{
+    background-color: #009e66;
+    color: white;
+    font-family: 'Rubik Bubbles', cursive;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px;
+    font-size: 20px;
 }
 #modal-background{
     margin-bottom: 50px;
@@ -155,26 +160,57 @@ aside{
 }
 .post-content{
     width: 300px;
-    height: 70px;
-    border-radius: 20px;
-    border-color: #009e66;
+    height: 75px;
+    border-radius: 10px;
+    border: 3px solid #009e66;
+    font-family: 'Rubik Bubbles', cursive;
     size: 13px;
+    font-size: 17px;
 
 }
 
 .like{
     width: 30px;
     height: 30px;
-    
+    background-color: #009e66;
 }
+
 p {
     margin-block-end: 0%;
     margin-block-start: 0%;
+    font-family: 'Rubik Bubbles', cursive;
+    color: white
     
 }
 #img-like{
     width: 30px;
     height: 30px;
+}
+
+.edit-img{
+    background-color: #009e66;
+    color: white;
+    font-family: 'Rubik Bubbles', cursive;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px;
+}
+
+.save-img {
+    background-color: #009e66;
+    color: white;
+    font-family: 'Rubik Bubbles', cursive;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px; 
+}
+
+.delete-img{
+    background-color: #009e66;
+    color: white;
+    font-family: 'Rubik Bubbles', cursive;
+    border-radius: 5px;
+    font-size: 20px;
 }
 
 .hidden{
@@ -185,7 +221,10 @@ p {
 @media screen and (min-width:767px){
     .container{
         width:40% ;
-        height: 70vh;}
+        height: 70vh;
+        justify-content: space-between;
+        
+        }
         .nombreSn{
             font-size: 50px;
         }
@@ -195,11 +234,17 @@ p {
         }
         #post-description{
             width: 500px;
-            height: 70px;
+            height: 85px;
         }
         .post-content{
             width: 500px;
-            height: 70px;
+            height: 75px;
         }
-
-}
+        aside{
+            display: flex;
+            justify-content: center;
+        }
+        .name-container{
+            font-size: 20px;
+        }
+    }     
