@@ -1,12 +1,19 @@
 import { registerEmail } from '../src/firebase/promesasFirebase.js';
 
-jest.mock('../src/firebase/firebaseInit.js');
+jest.mock('../src/firebase/__mocks__/firebaseInit.js');
 
-describe('auth/invalid-email', () => {
-  it('deberia mostrar error', () => {
+describe('authentication', () => {
+  it('deberia ser una funcion', () => {
+
+  });
+  it('deberia mostrar error auth/invalid-email', (done) => {
+    const email = 'testgmailcom';
+    const password = '123456';
+    expect.assertion(1);
     document.body.innerHTML = '<section id="container"></section>';
     const container = document.getElementById('container');
-    registerEmail('email');
+    registerEmail(email, password);
     expect(container.textContent).toContain('❌ Correo electrónico no válido');
+    done();
   });
 });
