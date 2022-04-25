@@ -121,6 +121,7 @@ body{
     border-color: #009e66;
     font-family: 'Rubik Bubbles', cursive;
     font-size: 20px;
+    border: 3px solid #009e66;
 }
 
 .btn-post-inactive{
@@ -215,6 +216,12 @@ p {
 
 .hidden{
     display: none;
+}
+
+footer{
+    text-align: center;
+    padding-bottom: 15px;
+    background-color: #009e66
 }
 
 
