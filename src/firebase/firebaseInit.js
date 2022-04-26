@@ -30,7 +30,7 @@ import {
   // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js';
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: 'AIzaSyB1hX3d309sNUQ-HxsJKqs-PGkgmTVRjds',
   authDomain: 'misterio-sn15-1d8fd.firebaseapp.com',
   projectId: 'misterio-sn15-1d8fd',
@@ -48,6 +48,7 @@ export const provider = new GoogleAuthProvider();
 export const db = getFirestore();
 
 export {
+  initializeApp,
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,

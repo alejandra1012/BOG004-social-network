@@ -1,6 +1,6 @@
 import { registerEmail } from '../src/firebase/promesasFirebase.js';
 
-jest.mock('../src/firebase/__mocks__/firebaseInit.js');
+jest.mock('../src/firebase/firebaseInit.js');
 
 describe('authentication', () => {
   it('deberia ser una funcion', () => {
@@ -12,8 +12,8 @@ describe('authentication', () => {
     expect.assertion(1);
     document.body.innerHTML = '<section id="container"></section>';
     const container = document.getElementById('container');
-    registerEmail(email, password);
-    expect(container.textContent).toContain('❌ Correo electrónico no válido');
+    registerEmail(email, password)
+      .then(container.textContent).toContain('❌ Correo electrónico no válido');
     done();
   });
 });
