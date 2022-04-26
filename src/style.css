@@ -26,6 +26,7 @@ body{
     color: white;
     font-family:'Montserrat', sans-serif;
     padding-top: 50px;
+    margin-bottom: 20px;
    
 }
 
@@ -221,7 +222,22 @@ p {
 footer{
     text-align: center;
     padding-bottom: 15px;
-    background-color: #009e66
+    padding-top: 15px;
+    background-color: #009e66;
+    /* position: absolute; */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+
+   
+}
+
+/* 404 error */
+.errorView{
+    text-align: center;
+    color: white;
+    margin-bottom: 20%;
 }
 
 
