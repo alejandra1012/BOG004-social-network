@@ -1,6 +1,6 @@
 import { registerEmail } from '../src/firebase/promesasFirebase.js';
 
-jest.mock('../src/firebase/__mocks__/firebaseInit.js');
+jest.mock('../src/firebase/firebaseInit.js');
 
 describe('authentication', () => {
   it('deberia ser una funcion', () => {

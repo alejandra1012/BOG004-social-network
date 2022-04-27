@@ -1,9 +1,3 @@
-# Creando una Red Social
-
-## Índice
-
-* Debe contener lo siguiente:
-
 # MISTERIO
 Misterio es una red social donde los usuarios pueden compartir sus experiencias, historias o creaciones relacionadas al misterio, ya sean paranormales, policiales o alienígenas.
 La forma de compartir estas historias con otros usuarios es por medio de post escritos los cuales se pueden editar, borrar y dar me 'asusta' como signo de gusto o preferencia.
