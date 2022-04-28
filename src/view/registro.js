@@ -35,13 +35,15 @@ export default () => {
     errorMessageJoin.innerHTML = '';
 
     if (confirmPassword === password) {
-      registerEmail(email, password, confirmPassword);
-      const sessionUser = sessionStorage.getItem('userId');
-      if (sessionUser === 'logOut') {
-        const elemento = document.querySelector('#modalMessage');
-        document.querySelector('#textModal').innerHTML = 'Bienvenid@ ya eres parte de MISTERIO!';
-        elemento.style.display = 'block';
-      }
+      registerEmail(email, password, confirmPassword)
+        .then(() => {
+          const sessionUser = sessionStorage.getItem('userId');
+          if (sessionUser === 'logOut') {
+            const elemento = document.querySelector('#modalMessage');
+            document.querySelector('#textModal').innerHTML = 'Bienvenid@ ya eres parte de MISTERIO!';
+            elemento.style.display = 'block';
+          }
+        });
     } else {
       errorMessageJoin.innerHTML = '⚠️ confirmar contraseña es un campo obligatorio';
     }
