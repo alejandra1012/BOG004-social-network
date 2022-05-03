@@ -13,7 +13,7 @@ export default () => {
   <div id='modal-background'>
     <form id='modal_post-container' class='modal_post-container'>
       <div id='modal_header'>
-       <img id='img-usuario' src='../imagenes/alien.png'>
+       <img id='img-usuario' src='./imagenes/alien.png'>
         <div class='name-container'>MISTERIOSO</div>
       </div>
       <div id='line'>
@@ -92,7 +92,7 @@ export default () => {
         postTemplate += `
           <div id='div-post-container' class='div-post-container'> 
             <div id='post-container-header' class='post-container-header'>
-              <img id='img-usuario' src='../imagenes/alien.png'>
+              <img id='img-usuario' src='./imagenes/alien.png'>
               <div class='name-container'>${post.email}</div>
             </div>
             <textarea type='text' class='post-content inp-pos-modal-post' readonly id='${doc.id}'>${doc.data().postDescription}
@@ -102,7 +102,7 @@ export default () => {
                 <i class="${likeIcon}" id='${doc.id}'></i>
                 <p class='like-lenght'>${post.arrayLike.length}</p>
                </button>
-               <img id='img-like' src='../imagenes/grito.png' ${likeIcon ? '' : 'hidden'}>
+               <img id='img-like' src='./imagenes/grito.png' ${likeIcon ? '' : 'hidden'}>
                <div class='btns-post-container'>${deleteEditSection}</div>
                <div>
                </div>
